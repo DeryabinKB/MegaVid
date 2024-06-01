@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="MegaVid.PlayControlPopup">
+
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Padding="20">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+            <Button Text="LL" Clicked="OnPreviousVideoClicked"/>
+            <Button Text="Pause" Clicked="OnPauseClicked"/>
+            <Button Text="Stop" Clicked="OnStopClicked"/>
+            <Button Text="Play" Clicked="OnPlayClicked"/>
+            <Button Text=">>" Clicked="OnNextVideoClicked"/>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

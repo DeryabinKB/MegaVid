@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="MegaVid.MainPage">
+             x:Class="MegaVid.MainPage"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:popups="clr-namespace:MegaVid;assembly=MegaVid">
 
     <StackLayout>
         <Button Text="Select Video" Clicked="OnSelectVideoClicked" />
@@ -10,19 +12,14 @@
                               WidthRequest="300"
                               HeightRequest="300"
                               AutoPlay="False"
-                              Aspect="AspectFit" />
-
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-            <Button Text="Left" Clicked="OnRewindClicked"/>
-            <Button Text="Pause" Clicked="OnPauseClicked"/>
-            <Button Text="Play" Clicked="OnPlayClicked"/>
-            <Button Text="Right" Clicked="OnForwardClicked"/>
-        </StackLayout>
+                              Aspect="AspectFit" 
+                              ShowsPlaybackControls="False"/>
 
         <Slider x:Name="volumeSlider" 
                 Minimum="0" Maximum="1" 
                 ValueChanged="OnVolumeChanged"/>
 
+        <Button Text="Show Play Controls" Clicked="OnShowPlayControlPopupClicked"/>
         <Button Text="Rotate Video" Clicked="OnRotateClicked"/>
 
         <Button Text="Show Media Library" Clicked="OnShowMediaLibraryClicked"/>
