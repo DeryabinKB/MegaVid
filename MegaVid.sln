@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaVid.Android", "MegaVid.Android\MegaVid.Android.csproj", "{CDF14114-0091-4D97-8453-E91642C308F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaVid", "MegaVid\MegaVid.csproj", "{75D5A340-4FD1-4F42-AB24-132882ABC73E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDF14114-0091-4D97-8453-E91642C308F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF14114-0091-4D97-8453-E91642C308F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF14114-0091-4D97-8453-E91642C308F7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CDF14114-0091-4D97-8453-E91642C308F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF14114-0091-4D97-8453-E91642C308F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF14114-0091-4D97-8453-E91642C308F7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{75D5A340-4FD1-4F42-AB24-132882ABC73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D5A340-4FD1-4F42-AB24-132882ABC73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D5A340-4FD1-4F42-AB24-132882ABC73E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{75D5A340-4FD1-4F42-AB24-132882ABC73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D5A340-4FD1-4F42-AB24-132882ABC73E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75D5A340-4FD1-4F42-AB24-132882ABC73E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D97F6445-0634-4741-8067-3625F52BC5D6}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="MegaVid.MainPage">
+
+    <StackLayout>
+        <Button Text="Select Video" Clicked="OnSelectVideoClicked" />
+        <toolkit:MediaElement x:Name="mediaElement"
+                              WidthRequest="300"
+                              HeightRequest="300"
+                              AutoPlay="False"
+                              Aspect="AspectFit" />
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Left" Clicked="OnRewindClicked"/>
+            <Button Text="Pause" Clicked="OnPauseClicked"/>
+            <Button Text="Play" Clicked="OnPlayClicked"/>
+            <Button Text="Right" Clicked="OnForwardClicked"/>
+        </StackLayout>
+
+        <Slider x:Name="volumeSlider" 
+                Minimum="0" Maximum="1" 
+                ValueChanged="OnVolumeChanged"/>
+
+        <Button Text="Rotate Video" Clicked="OnRotateClicked"/>
+
+        <Button Text="Show Media Library" Clicked="OnShowMediaLibraryClicked"/>
+        <Button Text="Add to Bookmarks" Clicked="OnAddToBookmarksClicked"/>
+        <Button Text="Show Bookmarks" Clicked="OnShowBookmarksClicked"/>
+        <Button Text="Show History" Clicked="OnShowHistoryClicked"/>
+    </StackLayout>
+</ContentPage>
