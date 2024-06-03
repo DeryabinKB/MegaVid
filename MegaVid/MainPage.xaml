@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:MegaVid"
              x:Class="MegaVid.MainPage"
              BackgroundColor="Black">
 
-    <Grid>
+    <Grid x:Name="mainGrid">
         <toolkit:MediaElement x:Name="mediaElement"
                               AutoPlay="False"
                               Aspect="AspectFill"

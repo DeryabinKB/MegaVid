@@ -22,6 +22,9 @@ namespace MegaVid
 
             LoadVideoFiles();
             DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += OnMediaElementTapped;
+            mainGrid.GestureRecognizers.Add(tapGestureRecognizer);
         }
 
         private void LoadVideoFiles()
@@ -84,7 +87,7 @@ namespace MegaVid
 
         private void OnMediaElementTapped(object sender, EventArgs e)
         {
-            ShowControlPanel();
+            _videoControlHelper.ToggleControlPanel();
             ResetControlPanelTimer();
         }
 
@@ -150,7 +153,6 @@ namespace MegaVid
                 progressPanel.IsVisible = true;
                 rotateButton.IsVisible = true;
                 sidePanel.IsVisible = true;
-                _videoControlHelper.ShowControlPanel();
             });
         }
     }
