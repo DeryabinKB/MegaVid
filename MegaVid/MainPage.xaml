@@ -20,7 +20,7 @@
 
         <StackLayout x:Name="controlPanel"
                      Orientation="Horizontal"
-                     HorizontalOptions="Center"
+                     HorizontalOptions="FillAndExpand"
                      VerticalOptions="End"
                      BackgroundColor="Black"
                      Opacity="0.8"
@@ -43,9 +43,9 @@
                      BackgroundColor="Black"
                      Padding="5"
                      Spacing="10">
-            <Label x:Name="currentTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center"/>
+            <Label x:Name="currentTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
             <Slider x:Name="progressSlider" Minimum="0" Maximum="1" ValueChanged="OnProgressChanged" HorizontalOptions="FillAndExpand"/>
-            <Label x:Name="totalTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center"/>
+            <Label x:Name="totalTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="End"/>
         </StackLayout>
 
         <Button Text="🔄"

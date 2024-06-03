@@ -1,0 +1,3 @@
+<Button ImageSource="play_icon.png" Clicked="OnPlayPauseClicked" BackgroundColor="Transparent"/>
+<Button ImageSource="rewind_icon.png" Clicked="OnRewindClicked" BackgroundColor="Transparent"/>
+<Button ImageSource="fastforward_icon.png" Clicked="OnFastForwardClicked" BackgroundColor="Transparent"/>
