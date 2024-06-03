@@ -128,6 +128,31 @@ namespace MegaVid.Helpers
             }
         }
 
+        public void ShowControlPanel()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _controlPanel.IsVisible = true;
+                _progressPanel.IsVisible = true;
+                _rotateButton.IsVisible = true;
+                _sidePanel.IsVisible = true;
+                _isControlPanelVisible = true;
+                _hideControlPanelTimer.Start();
+            });
+        }
+
+        public void HideControlPanel()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _controlPanel.IsVisible = false;
+                _progressPanel.IsVisible = false;
+                _rotateButton.IsVisible = false;
+                _sidePanel.IsVisible = false;
+                _isControlPanelVisible = false;
+            });
+        }
+
         public void AdjustControlPanelPosition(DisplayOrientation orientation)
         {
             Device.BeginInvokeOnMainThread(() =>
@@ -148,45 +173,22 @@ namespace MegaVid.Helpers
 
         private void UpdateControlPanelPosition()
         {
-            // Обновление позиции панели управления в зависимости от ориентации
-            if (_controlPanel.Orientation == StackOrientation.Horizontal)
-            {
-                _controlPanel.VerticalOptions = LayoutOptions.End;
-                _progressPanel.VerticalOptions = LayoutOptions.End;
-                _controlPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-                _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-            }
-            else
-            {
-                _controlPanel.VerticalOptions = LayoutOptions.Start;
-                _progressPanel.VerticalOptions = LayoutOptions.End;
-                _controlPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-                _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-            }
-        }
-
-        public void ShowControlPanel()
-        {
             Device.BeginInvokeOnMainThread(() =>
             {
-                _controlPanel.IsVisible = true;
-                _progressPanel.IsVisible = true;
-                _rotateButton.IsVisible = true;
-                _sidePanel.IsVisible = true;
-                _isControlPanelVisible = true;
-                _hideControlPanelTimer.Start();
-            });
-        }
-
-        private void HideControlPanel()
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                _controlPanel.IsVisible = false;
-                _progressPanel.IsVisible = false;
-                _rotateButton.IsVisible = false;
-                _sidePanel.IsVisible = false;
-                _isControlPanelVisible = false;
+                if (_controlPanel.Orientation == StackOrientation.Horizontal)
+                {
+                    _controlPanel.VerticalOptions = LayoutOptions.End;
+                    _progressPanel.VerticalOptions = LayoutOptions.End;
+                    _controlPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
+                }
+                else
+                {
+                    _controlPanel.VerticalOptions = LayoutOptions.Start;
+                    _progressPanel.VerticalOptions = LayoutOptions.End;
+                    _controlPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
+                }
             });
         }
 
