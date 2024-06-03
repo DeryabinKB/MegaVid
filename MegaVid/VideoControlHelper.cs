@@ -18,6 +18,7 @@ namespace MegaVid.Helpers
         private readonly StackLayout _progressPanel;
         private readonly Button _rotateButton;
         private readonly StackLayout _sidePanel;
+
         private bool _isPlaying;
         private bool _isControlPanelVisible;
         private readonly System.Timers.Timer _hideControlPanelTimer;
@@ -34,6 +35,7 @@ namespace MegaVid.Helpers
             _progressPanel = progressPanel;
             _rotateButton = rotateButton;
             _sidePanel = sidePanel;
+            _mediaElement.Aspect = Aspect.Fill;
             _isControlPanelVisible = true;
             _hideControlPanelTimer = new System.Timers.Timer(5000); // 5 секунд
             _hideControlPanelTimer.Elapsed += (sender, args) => HideControlPanel();
@@ -163,7 +165,7 @@ namespace MegaVid.Helpers
             }
         }
 
-        private void ShowControlPanel()
+        public void ShowControlPanel()
         {
             Device.BeginInvokeOnMainThread(() =>
             {

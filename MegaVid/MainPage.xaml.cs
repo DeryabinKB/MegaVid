@@ -85,10 +85,11 @@ namespace MegaVid
         private void OnMediaElementTapped(object sender, EventArgs e)
         {
             _videoControlHelper.ToggleControlPanel();
+            ShowControlPanel();
             ResetControlPanelTimer();
         }
 
-        private void OnProgressChanged(object sender, ValueChangedEventArgs e)
+            private void OnProgressChanged(object sender, ValueChangedEventArgs e)
         {
             _videoControlHelper.OnProgressChanged(sender, e);
             ResetControlPanelTimer();
@@ -150,6 +151,7 @@ namespace MegaVid
                 progressPanel.IsVisible = true;
                 rotateButton.IsVisible = true;
                 sidePanel.IsVisible = true;
+                _videoControlHelper.ShowControlPanel();
             });
         }
     }

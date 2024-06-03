@@ -8,7 +8,7 @@
     <Grid>
         <toolkit:MediaElement x:Name="mediaElement"
                               AutoPlay="False"
-                              Aspect="AspectFit"
+                              Aspect="Fill"
                               ShowsPlaybackControls="False"
                               HorizontalOptions="FillAndExpand"
                               VerticalOptions="FillAndExpand"
