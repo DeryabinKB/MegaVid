@@ -36,13 +36,13 @@ namespace MegaVid
 
         private void OnPreviousVideoClicked(object sender, EventArgs e)
         {
-            // Логика для предыдущего видео
+            // Реализация для предыдущего видео
             PopupNavigation.Instance.PopAsync(true);
         }
 
         private void OnNextVideoClicked(object sender, EventArgs e)
         {
-            // Логика для следующего видео
+            // Реализация для следующего видео
             PopupNavigation.Instance.PopAsync(true);
         }
     }

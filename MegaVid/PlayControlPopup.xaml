@@ -6,7 +6,7 @@
 
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" Padding="20">
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
-            <Button Text="LL" Clicked="OnPreviousVideoClicked"/>
+            <Button Text="left" Clicked="OnPreviousVideoClicked"/>
             <Button Text="Pause" Clicked="OnPauseClicked"/>
             <Button Text="Stop" Clicked="OnStopClicked"/>
             <Button Text="Play" Clicked="OnPlayClicked"/>

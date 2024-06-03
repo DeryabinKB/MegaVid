@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using MegaVid.Services;
-using Newtonsoft.Json;
-using Rg.Plugins.Popup.Services;
 
 namespace MegaVid
 {
@@ -18,6 +16,9 @@ namespace MegaVid
         private readonly BookmarkService _bookmarkService;
         private readonly HistoryService _historyService;
         private readonly MediaLibraryService _mediaLibraryService;
+        private bool isControlPanelVisible = true;
+        private bool isPlaying = false;
+        private DeviceTimer hideControlPanelTimer;
 
         public MainPage()
         {
@@ -26,6 +27,7 @@ namespace MegaVid
             _historyService = new HistoryService();
             _mediaLibraryService = new MediaLibraryService();
             LoadVideoFiles();
+            hideControlPanelTimer = Device.StartTimer(TimeSpan.FromSeconds(5), HideControlPanel);
         }
 
         private void LoadVideoFiles()
@@ -46,23 +48,44 @@ namespace MegaVid
             {
                 mediaElement.Source = result.FullPath;
                 mediaElement.Play();
+                isPlaying = true;
+                playPauseButton.Text = "⏸";
                 _historyService.AddToHistory(result.FullPath, 0);
+                Device.StartTimer(TimeSpan.FromSeconds(1), UpdateProgress);
             }
         }
 
-        private void OnPlayClicked(object sender, EventArgs e)
+        private void OnPlayPauseClicked(object sender, EventArgs e)
         {
-            mediaElement.Play();
-        }
-
-        private void OnPauseClicked(object sender, EventArgs e)
-        {
-            mediaElement.Pause();
+            if (isPlaying)
+            {
+                mediaElement.Pause();
+                playPauseButton.Text = "▶";
+            }
+            else
+            {
+                mediaElement.Play();
+                playPauseButton.Text = "⏸";
+                Device.StartTimer(TimeSpan.FromSeconds(1), UpdateProgress);
+            }
+            isPlaying = !isPlaying;
         }
 
         private void OnStopClicked(object sender, EventArgs e)
         {
             mediaElement.Stop();
+            playPauseButton.Text = "▶";
+            isPlaying = false;
+        }
+
+        private void OnRewindClicked(object sender, EventArgs e)
+        {
+            mediaElement.Position = mediaElement.Position - TimeSpan.FromSeconds(10);
+        }
+
+        private void OnFastForwardClicked(object sender, EventArgs e)
+        {
+            mediaElement.Position = mediaElement.Position + TimeSpan.FromSeconds(10);
         }
 
         private void OnVolumeChanged(object sender, ValueChangedEventArgs e)
@@ -83,9 +106,42 @@ namespace MegaVid
             }
         }
 
-        private async void OnShowPlayControlPopupClicked(object sender, EventArgs e)
+        private void OnPreviousVideoClicked(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PushAsync(new PlayControlPopup(mediaElement));
+            // Реализация для предыдущего видео
+        }
+
+        private void OnNextVideoClicked(object sender, EventArgs e)
+        {
+            // Реализация для следующего видео
+        }
+
+        private void OnMediaElementTapped(object sender, EventArgs e)
+        {
+            if (!isControlPanelVisible)
+            {
+                ShowControlPanel();
+            }
+            else
+            {
+                HideControlPanel();
+            }
+        }
+
+        private void ShowControlPanel()
+        {
+            controlPanel.IsVisible = true;
+            progressPanel.IsVisible = true;
+            isControlPanelVisible = true;
+            hideControlPanelTimer = Device.StartTimer(TimeSpan.FromSeconds(5), HideControlPanel);
+        }
+
+        private bool HideControlPanel()
+        {
+            controlPanel.IsVisible = false;
+            progressPanel.IsVisible = false;
+            isControlPanelVisible = false;
+            return false; // Не продолжать таймер
         }
 
         private void OnAddToBookmarksClicked(object sender, EventArgs e)
@@ -127,6 +183,32 @@ namespace MegaVid
                 var currentVideo = mediaElement.Source.ToString();
                 var currentTime = mediaElement.Position.TotalSeconds;
                 _historyService.AddToHistory(currentVideo, currentTime);
+            }
+        }
+
+        private bool UpdateProgress()
+        {
+            if (mediaElement.Source != null && mediaElement.Duration.HasValue)
+            {
+                var position = mediaElement.Position;
+                var duration = mediaElement.Duration.Value;
+
+                progressSlider.Value = position.TotalSeconds / duration.TotalSeconds;
+                currentTimeLabel.Text = position.ToString(@"mm\:ss");
+                totalTimeLabel.Text = duration.ToString(@"mm\:ss");
+
+                if (!isPlaying)
+                    return false;
+            }
+            return true;
+        }
+
+        private void OnProgressChanged(object sender, ValueChangedEventArgs e)
+        {
+            if (mediaElement.Source != null && mediaElement.Duration.HasValue)
+            {
+                var duration = mediaElement.Duration.Value;
+                mediaElement.Position = TimeSpan.FromSeconds(duration.TotalSeconds * e.NewValue);
             }
         }
     }

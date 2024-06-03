@@ -1,11 +1,9 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
 using Android.OS;
 using Xamarin.Forms.Platform.Android;
 using Rg.Plugins.Popup;
+using Android.Runtime;
 
 namespace MegaVid.Droid
 {

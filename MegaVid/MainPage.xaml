@@ -3,28 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              x:Class="MegaVid.MainPage"
-             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-             xmlns:popups="clr-namespace:MegaVid;assembly=MegaVid">
+             BackgroundColor="Black">
 
-    <StackLayout>
-        <Button Text="Select Video" Clicked="OnSelectVideoClicked" />
+    <Grid>
         <toolkit:MediaElement x:Name="mediaElement"
-                              WidthRequest="300"
-                              HeightRequest="300"
                               AutoPlay="False"
-                              Aspect="AspectFit" 
-                              ShowsPlaybackControls="False"/>
+                              Aspect="AspectFit"
+                              ShowsPlaybackControls="False"
+                              HorizontalOptions="FillAndExpand"
+                              VerticalOptions="FillAndExpand"
+                              BackgroundColor="Black">
+            <toolkit:MediaElement.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnMediaElementTapped" />
+            </toolkit:MediaElement.GestureRecognizers>
+        </toolkit:MediaElement>
 
-        <Slider x:Name="volumeSlider" 
-                Minimum="0" Maximum="1" 
-                ValueChanged="OnVolumeChanged"/>
+        <StackLayout x:Name="controlPanel"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center"
+                     VerticalOptions="End"
+                     BackgroundColor="Black"
+                     Opacity="0.8"
+                     Padding="5"
+                     IsVisible="True">
+            <!-- Всегда видимые элементы управления -->
 
-        <Button Text="Show Play Controls" Clicked="OnShowPlayControlPopupClicked"/>
-        <Button Text="Rotate Video" Clicked="OnRotateClicked"/>
+            <Button x:Name="playPauseButton" Text="▶" Clicked="OnPlayPauseClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="⏮" Clicked="OnPreviousVideoClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="⏪" Clicked="OnRewindClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="⏩" Clicked="OnFastForwardClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="⏭" Clicked="OnNextVideoClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Slider x:Name="volumeSlider" Minimum="0" Maximum="1" ValueChanged="OnVolumeChanged" WidthRequest="100" BackgroundColor="Transparent"/>
+        </StackLayout>
 
-        <Button Text="Show Media Library" Clicked="OnShowMediaLibraryClicked"/>
-        <Button Text="Add to Bookmarks" Clicked="OnAddToBookmarksClicked"/>
-        <Button Text="Show Bookmarks" Clicked="OnShowBookmarksClicked"/>
-        <Button Text="Show History" Clicked="OnShowHistoryClicked"/>
-    </StackLayout>
+        <StackLayout x:Name="progressPanel"
+                     Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="End"
+                     BackgroundColor="Black"
+                     Padding="5"
+                     Spacing="10">
+            <Label x:Name="currentTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center"/>
+            <Slider x:Name="progressSlider" Minimum="0" Maximum="1" ValueChanged="OnProgressChanged" HorizontalOptions="FillAndExpand"/>
+            <Label x:Name="totalTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center"/>
+        </StackLayout>
+
+        <Button Text="🔄"
+                Clicked="OnRotateClicked"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                BackgroundColor="Transparent"
+                TextColor="White"
+                Padding="5"/>
+
+        <StackLayout HorizontalOptions="Start" VerticalOptions="Start" Padding="10">
+            <Button Text="📁 Select Video" Clicked="OnSelectVideoClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="📚 Show Media Library" Clicked="OnShowMediaLibraryClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="🔖 Add to Bookmarks" Clicked="OnAddToBookmarksClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="🔖 Show Bookmarks" Clicked="OnShowBookmarksClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="🕒 Show History" Clicked="OnShowHistoryClicked" BackgroundColor="Transparent" TextColor="White"/>
+        </StackLayout>
+    </Grid>
 </ContentPage>
