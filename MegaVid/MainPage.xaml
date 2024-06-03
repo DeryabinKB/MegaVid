@@ -24,15 +24,14 @@
                      VerticalOptions="End"
                      BackgroundColor="Black"
                      Opacity="0.8"
-                     Padding="5"
+                     Padding="30"
                      IsVisible="True">
-            <!-- Всегда видимые элементы управления -->
 
             <Button x:Name="playPauseButton" Text="▶" Clicked="OnPlayPauseClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="⏮" Clicked="OnPreviousVideoClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="⏪" Clicked="OnRewindClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="⏩" Clicked="OnFastForwardClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="⏭" Clicked="OnNextVideoClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="⏮" Clicked="OnPreviousVideoClicked" BackgroundColor="Transparent" TextColor="White" Padding="10"/>
+            <Button Text="⏪" Clicked="OnRewindClicked" BackgroundColor="Transparent" TextColor="White" Padding="10"/>
+            <Button Text="⏩" Clicked="OnFastForwardClicked" BackgroundColor="Transparent" TextColor="White" Padding="10"/>
+            <Button Text="⏭" Clicked="OnNextVideoClicked" BackgroundColor="Transparent" TextColor="White" Padding="10"/>
             <Slider x:Name="volumeSlider" Minimum="0" Maximum="1" ValueChanged="OnVolumeChanged" WidthRequest="100" BackgroundColor="Transparent"/>
         </StackLayout>
 
@@ -48,7 +47,7 @@
             <Label x:Name="totalTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="End"/>
         </StackLayout>
 
-        <Button Text="🔄"
+        <Button x:Name="rotateButton" Text="🔄"
                 Clicked="OnRotateClicked"
                 HorizontalOptions="End"
                 VerticalOptions="Start"
@@ -56,12 +55,12 @@
                 TextColor="White"
                 Padding="5"/>
 
-        <StackLayout HorizontalOptions="Start" VerticalOptions="Start" Padding="10">
-            <Button Text="📁 Select Video" Clicked="OnSelectVideoClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="📚 Show Media Library" Clicked="OnShowMediaLibraryClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="🔖 Add to Bookmarks" Clicked="OnAddToBookmarksClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="🔖 Show Bookmarks" Clicked="OnShowBookmarksClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="🕒 Show History" Clicked="OnShowHistoryClicked" BackgroundColor="Transparent" TextColor="White"/>
+        <StackLayout x:Name="sidePanel" HorizontalOptions="Start" VerticalOptions="Start" Padding="10">
+            <Button Text="📁 Select Video" Clicked="OnSelectVideoClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
+            <Button Text="📚 Show Media Library" Clicked="OnShowMediaLibraryClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
+            <Button Text="🔖 Add to Bookmarks" Clicked="OnAddToBookmarksClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
+            <Button Text="🔖 Show Bookmarks" Clicked="OnShowBookmarksClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
+            <Button Text="🕒 Show History" Clicked="OnShowHistoryClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
         </StackLayout>
     </Grid>
 </ContentPage>

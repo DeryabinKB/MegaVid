@@ -16,11 +16,13 @@ namespace MegaVid.Helpers
         private readonly Label _totalTimeLabel;
         private readonly StackLayout _controlPanel;
         private readonly StackLayout _progressPanel;
+        private readonly Button _rotateButton;
+        private readonly StackLayout _sidePanel;
         private bool _isPlaying;
         private bool _isControlPanelVisible;
         private readonly System.Timers.Timer _hideControlPanelTimer;
 
-        public VideoControlHelper(MediaElement mediaElement, Button playPauseButton, Slider volumeSlider, Slider progressSlider, Label currentTimeLabel, Label totalTimeLabel, StackLayout controlPanel, StackLayout progressPanel)
+        public VideoControlHelper(MediaElement mediaElement, Button playPauseButton, Slider volumeSlider, Slider progressSlider, Label currentTimeLabel, Label totalTimeLabel, StackLayout controlPanel, StackLayout progressPanel, Button rotateButton, StackLayout sidePanel)
         {
             _mediaElement = mediaElement;
             _playPauseButton = playPauseButton;
@@ -30,6 +32,8 @@ namespace MegaVid.Helpers
             _totalTimeLabel = totalTimeLabel;
             _controlPanel = controlPanel;
             _progressPanel = progressPanel;
+            _rotateButton = rotateButton;
+            _sidePanel = sidePanel;
             _isControlPanelVisible = true;
             _hideControlPanelTimer = new System.Timers.Timer(5000); // 5 секунд
             _hideControlPanelTimer.Elapsed += (sender, args) => HideControlPanel();
@@ -165,6 +169,8 @@ namespace MegaVid.Helpers
             {
                 _controlPanel.IsVisible = true;
                 _progressPanel.IsVisible = true;
+                _rotateButton.IsVisible = true;
+                _sidePanel.IsVisible = true;
                 _isControlPanelVisible = true;
                 _hideControlPanelTimer.Start();
             });
@@ -176,6 +182,8 @@ namespace MegaVid.Helpers
             {
                 _controlPanel.IsVisible = false;
                 _progressPanel.IsVisible = false;
+                _rotateButton.IsVisible = false;
+                _sidePanel.IsVisible = false;
                 _isControlPanelVisible = false;
             });
         }
