@@ -4,6 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using MegaVid.Services;
 using Xamarin.CommunityToolkit.UI.Views;
+using static MegaVid.Services.BookmarkService;
+using System;
 
 namespace MegaVid.Helpers
 {
@@ -46,6 +48,23 @@ namespace MegaVid.Helpers
         public void SaveHistory(string filePath, double position)
         {
             _historyService.AddToHistory(filePath, position);
+        }
+
+        public void ClearBookmarks()
+        {
+            _bookmarkService.ClearBookmarks();
+        }
+
+        public void OpenBookmark(Bookmark bookmark)
+        {
+            _mediaElement.Source = bookmark.FilePath;
+            _mediaElement.Position = TimeSpan.FromSeconds(bookmark.Position);
+            _mediaElement.Play();
+        }
+
+        public List<BookmarkService.Bookmark> GetBookmarks()
+        {
+            return _bookmarkService.GetBookmarks();
         }
 
         public void LoadVideoFiles(string directory)

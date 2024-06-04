@@ -2,6 +2,9 @@
 using Xamarin.Essentials;
 using System;
 using MegaVid.Helpers;
+using Xamarin.Forms.Xaml;
+using Xamarin.CommunityToolkit.UI.Views;
+using MegaVid.Services;
 
 namespace MegaVid
 {
@@ -10,6 +13,7 @@ namespace MegaVid
         private readonly VideoHelper _videoHelper;
         private readonly VideoControlHelper _videoControlHelper;
         private readonly System.Timers.Timer _hideControlPanelTimer;
+        private Slider volumeSlider;
 
         public MainPage()
         {
@@ -36,6 +40,7 @@ namespace MegaVid
         private void OnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
             _videoControlHelper.AdjustControlPanelPosition(e.DisplayInfo.Orientation);
+            _videoControlHelper.AdjustVideoSize(e.DisplayInfo.Orientation); // Добавляем этот вызов
         }
 
         private async void OnSelectVideoClicked(object sender, EventArgs e)
@@ -70,13 +75,31 @@ namespace MegaVid
         private async void OnRotateClicked(object sender, EventArgs e)
         {
             await _videoControlHelper.Rotate();
+            //controlPanel.Margin = 25;
+            //controlPanel.Padding = 25;
+            //controlPanel = controlPanel;
             ResetControlPanelTimer();
         }
 
         private void OnPreviousVideoClicked(object sender, EventArgs e)
         {
             _videoControlHelper.PreviousVideo();
+            controlPanel = controlPanel;
+            //controlPanel.Padding = 0;
             ResetControlPanelTimer();
+        }
+
+        private void OnClearBookmarksClicked(object sender, EventArgs e)
+        {
+            _videoHelper.ClearBookmarks();
+        }
+
+        private void OnBookmarkSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem is BookmarkService.Bookmark selectedBookmark)
+            {
+                _videoHelper.OpenBookmark(selectedBookmark);
+            }
         }
 
         private void OnNextVideoClicked(object sender, EventArgs e)

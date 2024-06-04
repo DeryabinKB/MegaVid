@@ -23,6 +23,8 @@ namespace MegaVid.Services
             }
         }
 
+
+
         public void SaveBookmarks(List<Bookmark> bookmarks)
         {
             try
@@ -44,11 +46,13 @@ namespace MegaVid.Services
             {
                 bookmarks.Remove(existingBookmark);
             }
-            else
-            {
-                bookmarks.Add(new Bookmark { FilePath = filePath, Position = position });
-            }
+            bookmarks.Add(new Bookmark { FilePath = filePath, Position = position });
             SaveBookmarks(bookmarks);
+        }
+
+        public void ClearBookmarks()
+        {
+            SaveBookmarks(new List<Bookmark>());
         }
 
         public class Bookmark

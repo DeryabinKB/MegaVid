@@ -6,13 +6,13 @@
              x:Class="MegaVid.MainPage"
              BackgroundColor="Black">
 
-    <Grid x:Name="mainGrid">
+    <Grid x:Name="mainGrid" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
         <toolkit:MediaElement x:Name="mediaElement"
                               AutoPlay="False"
-                              Aspect="AspectFill"
+                              Aspect="Fill"
                               ShowsPlaybackControls="False"
-                              HorizontalOptions="FillAndExpand"
-                              VerticalOptions="FillAndExpand"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"
                               BackgroundColor="Black">
             <toolkit:MediaElement.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnMediaElementTapped" />
@@ -22,15 +22,15 @@
         <StackLayout x:Name="controlPanel"
                      Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand"
-                     VerticalOptions="End"
+                     VerticalOptions="EndAndExpand"
                      BackgroundColor="Black"
                      Opacity="0.8"
-                     Padding="30"
-                     IsVisible="True">
-            <Button Text="⏪" Clicked="OnRewindClicked" BackgroundColor="Transparent" TextColor="White" Padding="10"/>
-            <Button x:Name="playPauseButton" Text="▶" Clicked="OnPlayPauseClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="⏩" Clicked="OnFastForwardClicked" BackgroundColor="Transparent" TextColor="White" Padding="10"/>
-            <Slider x:Name="volumeSlider" Minimum="0" Maximum="1" ValueChanged="OnVolumeChanged" WidthRequest="100" BackgroundColor="Transparent"/>
+                     Padding="55"
+                     IsVisible="True"
+                     Margin="0">
+            <Button Text="⏪"  Clicked="OnRewindClicked" BackgroundColor="Transparent" TextColor="White" Padding="0"/>
+            <Button x:Name="playPauseButton"  Text="▶" Clicked="OnPlayPauseClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="⏩"  Clicked="OnFastForwardClicked" BackgroundColor="Transparent" TextColor="White" Padding="0"/>
         </StackLayout>
 
         <StackLayout x:Name="progressPanel"
@@ -39,7 +39,7 @@
                      VerticalOptions="End"
                      BackgroundColor="Black"
                      Padding="5"
-                     Spacing="10">
+                     Spacing="0">
             <Label x:Name="currentTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
             <Slider x:Name="progressSlider" Minimum="0" Maximum="1" ValueChanged="OnProgressChanged" HorizontalOptions="FillAndExpand"/>
             <Label x:Name="totalTimeLabel" Text="0:00" TextColor="White" VerticalTextAlignment="Center" HorizontalTextAlignment="End"/>
@@ -51,14 +51,19 @@
                 VerticalOptions="Start"
                 BackgroundColor="Transparent"
                 TextColor="White"
-                Padding="5"/>
+                Padding="0"/>
 
-        <StackLayout x:Name="sidePanel" HorizontalOptions="Start" VerticalOptions="Start" Padding="10">
+        <StackLayout x:Name="sidePanel" HorizontalOptions="Start" VerticalOptions="Start" Padding="0">
             <Button Text="📁 Select Video" Clicked="OnSelectVideoClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
             <Button Text="📚 Show Media Library" Clicked="OnShowMediaLibraryClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
             <Button Text="🔖 Add to Bookmarks" Clicked="OnAddToBookmarksClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
             <Button Text="🔖 Show Bookmarks" Clicked="OnShowBookmarksClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
+            <Button Text="Clear Bookmarks" Clicked="OnClearBookmarksClicked" />
             <Button Text="🕒 Show History" Clicked="OnShowHistoryClicked" BackgroundColor="Transparent" TextColor="White" HorizontalOptions="Start"/>
+            
         </StackLayout>
+
+        
+
     </Grid>
 </ContentPage>

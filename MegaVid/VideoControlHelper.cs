@@ -160,14 +160,45 @@ namespace MegaVid.Helpers
                 if (orientation == DisplayOrientation.Portrait)
                 {
                     _controlPanel.Orientation = StackOrientation.Horizontal;
+                    _controlPanel.HorizontalOptions = LayoutOptions.Center;
+                    _controlPanel.VerticalOptions = LayoutOptions.End;
+
                     _progressPanel.Orientation = StackOrientation.Horizontal;
+                    _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    _progressPanel.VerticalOptions = LayoutOptions.End;
                 }
                 else
                 {
                     _controlPanel.Orientation = StackOrientation.Horizontal;
-                    _progressPanel.Orientation = StackOrientation.Vertical;
+                    _controlPanel.HorizontalOptions = LayoutOptions.Center;
+                    _controlPanel.VerticalOptions = LayoutOptions.End;
+
+                    _progressPanel.Orientation = StackOrientation.Horizontal;
+                    _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
+                    _progressPanel.VerticalOptions = LayoutOptions.End;
                 }
                 UpdateControlPanelPosition();
+                AdjustVideoSize(orientation);
+            });
+        }
+
+        public void AdjustVideoSize(DisplayOrientation orientation)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+                if (orientation == DisplayOrientation.Portrait)
+                {
+                    _mediaElement.WidthRequest = mainDisplayInfo.Width;
+                    _mediaElement.HeightRequest = mainDisplayInfo.Height * 0.6; // Максимальная высота без растяжения
+                }
+                else
+                {
+                    _mediaElement.WidthRequest = mainDisplayInfo.Height;
+                    _mediaElement.HeightRequest = mainDisplayInfo.Width * 0.6; // Максимальная высота без растяжения
+                }
+                _mediaElement.VerticalOptions = LayoutOptions.Center;
+                _mediaElement.HorizontalOptions = LayoutOptions.Center;
             });
         }
 
@@ -175,20 +206,8 @@ namespace MegaVid.Helpers
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (_controlPanel.Orientation == StackOrientation.Horizontal)
-                {
-                    _controlPanel.VerticalOptions = LayoutOptions.End;
-                    _progressPanel.VerticalOptions = LayoutOptions.End;
-                    _controlPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-                    _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-                }
-                else
-                {
-                    _controlPanel.VerticalOptions = LayoutOptions.Start;
-                    _progressPanel.VerticalOptions = LayoutOptions.End;
-                    _controlPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-                    _progressPanel.HorizontalOptions = LayoutOptions.FillAndExpand;
-                }
+                var controlPanelPosition = new Thickness(0, 0, 0, _progressPanel.Height + 10); // немного выше слайдера воспроизведения
+                _controlPanel.Margin = controlPanelPosition;
             });
         }
 
