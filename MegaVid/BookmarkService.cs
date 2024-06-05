@@ -23,8 +23,6 @@ namespace MegaVid.Services
             }
         }
 
-
-
         public void SaveBookmarks(List<Bookmark> bookmarks)
         {
             try

@@ -34,8 +34,8 @@ namespace MegaVid.Helpers
         public void ShowBookmarks()
         {
             var bookmarks = _bookmarkService.GetBookmarks();
-            var bookmarkList = string.Join("\n", bookmarks.Select(b => $"{Path.GetFileName(b.FilePath)}"));
-            Application.Current.MainPage.DisplayAlert("Bookmarks", bookmarkList, "OK");
+            var bookmarkList = string.Join("\n", bookmarks.Select(b => $"{Path.GetFileName(b.FilePath)} at {TimeSpan.FromSeconds(b.Position)}"));
+            Application.Current.MainPage.DisplayActionSheet("Bookmarks", "Cancel", null, bookmarks.Select(b => $"{Path.GetFileName(b.FilePath)} at {TimeSpan.FromSeconds(b.Position)}").ToArray());
         }
 
         public void ShowHistory()

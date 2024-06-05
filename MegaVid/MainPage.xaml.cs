@@ -46,7 +46,7 @@ namespace MegaVid
         private void OnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
             _videoControlHelper.AdjustControlPanelPosition(e.DisplayInfo.Orientation);
-            _videoControlHelper.AdjustVideoSize(e.DisplayInfo.Orientation); // Добавляем этот вызов
+            _videoControlHelper.AdjustVideoSize(e.DisplayInfo.Orientation);
         }
 
         private void OnClearHistoryClicked(object sender, EventArgs e)
@@ -63,6 +63,10 @@ namespace MegaVid
         {
             _videoControlHelper.TogglePlayPause();
             ResetControlPanelTimer();
+            if (mediaElement.CurrentState == MediaElementState.Playing)
+            {
+                _videoHelper.SaveHistory(mediaElement.Source.ToString(), mediaElement.Position.TotalSeconds);
+            }
         }
 
         private void OnRewindClicked(object sender, EventArgs e)
@@ -86,17 +90,12 @@ namespace MegaVid
         private async void OnRotateClicked(object sender, EventArgs e)
         {
             await _videoControlHelper.Rotate();
-            //controlPanel.Margin = 25;
-            //controlPanel.Padding = 25;
-            //controlPanel = controlPanel;
             ResetControlPanelTimer();
         }
 
         private void OnPreviousVideoClicked(object sender, EventArgs e)
         {
             _videoControlHelper.PreviousVideo();
-            controlPanel = controlPanel;
-            //controlPanel.Padding = 0;
             ResetControlPanelTimer();
         }
 
