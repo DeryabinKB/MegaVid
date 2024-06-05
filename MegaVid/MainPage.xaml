@@ -13,7 +13,7 @@
                               ShowsPlaybackControls="False"
                               HorizontalOptions="FillAndExpand"
                               VerticalOptions="FillAndExpand"
-                              BackgroundColor="Black">
+                              BackgroundColor="Transparent">
             <toolkit:MediaElement.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnMediaElementTapped" />
             </toolkit:MediaElement.GestureRecognizers>
@@ -23,14 +23,14 @@
                      Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand"
                      VerticalOptions="EndAndExpand"
-                     BackgroundColor="Black"
+                     BackgroundColor="Transparent"
                      Opacity="0.8"
                      Padding="55"
                      IsVisible="True"
                      Margin="0">
-            <Button Text="⏪"  Clicked="OnRewindClicked" BackgroundColor="Transparent" TextColor="White" Padding="0"/>
-            <Button x:Name="playPauseButton"  Text="▶" Clicked="OnPlayPauseClicked" BackgroundColor="Transparent" TextColor="White"/>
-            <Button Text="⏩"  Clicked="OnFastForwardClicked" BackgroundColor="Transparent" TextColor="White" Padding="0"/>
+            <Button Text="⏪" Clicked="OnRewindClicked" BackgroundColor="Transparent" TextColor="White" Padding="0"/>
+            <Button x:Name="playPauseButton" Text="▶" Clicked="OnPlayPauseClicked" BackgroundColor="Transparent" TextColor="White"/>
+            <Button Text="⏩" Clicked="OnFastForwardClicked" BackgroundColor="Transparent" TextColor="White" Padding="0"/>
         </StackLayout>
 
         <StackLayout x:Name="progressPanel"
@@ -57,13 +57,31 @@
             <Button Text="📁 Select Video" Clicked="OnSelectVideoClicked" TextColor="Black" HorizontalOptions="Start"/>
             <Button Text="🔖 Add to Bookmarks" Clicked="OnAddToBookmarksClicked" TextColor="Black" HorizontalOptions="Start"/>
             <Button Text="🔖 Show Bookmarks" Clicked="OnShowBookmarksClicked" TextColor="Black" HorizontalOptions="Start"/>
-            <Button Text="Clear Bookmarks" Clicked="OnClearBookmarksClicked" />
+
+            <Frame x:Name="bookmarkFrame" 
+           IsVisible="False" 
+           BackgroundColor="LightGray"
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
+           WidthRequest="300"
+           HeightRequest="400">
+                <StackLayout>
+                    <Label Text="Bookmarks" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center" />
+                    <ListView x:Name="bookmarkListView"
+                      ItemSelected="OnBookmarkSelected">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding FilePath}" Detail="{Binding TimeAdded}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Text="Close" Clicked="OnCloseBookmarksClicked" />
+                </StackLayout>
+            </Frame>
+
+            <Button Text="🗑️ Clear Bookmarks" Clicked="OnClearBookmarksClicked" />
             <Button Text="🕒 Show History" Clicked="OnShowHistoryClicked" TextColor="Black" HorizontalOptions="Start"/>
-            <Button Text="Clear History" Clicked="OnClearHistoryClicked" />
-            
+            <Button Text="🗑️ Clear History" Clicked="OnClearHistoryClicked" />
         </StackLayout>
-
-        
-
     </Grid>
 </ContentPage>

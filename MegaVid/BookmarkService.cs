@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace MegaVid.Services
@@ -23,8 +22,6 @@ namespace MegaVid.Services
             }
         }
 
-
-
         public void SaveBookmarks(List<Bookmark> bookmarks)
         {
             try
@@ -38,15 +35,15 @@ namespace MegaVid.Services
             }
         }
 
-        public void AddBookmark(string filePath, double position)
+        public void AddBookmark(string filePath, double position, string timeAdded)
         {
             var bookmarks = GetBookmarks();
-            var existingBookmark = bookmarks.FirstOrDefault(b => b.FilePath == filePath);
+            var existingBookmark = bookmarks.FirstOrDefault(b => b.FilePath == filePath && b.Position == position);
             if (existingBookmark != null)
             {
                 bookmarks.Remove(existingBookmark);
             }
-            bookmarks.Add(new Bookmark { FilePath = filePath, Position = position });
+            bookmarks.Add(new Bookmark { FilePath = filePath, Position = position, TimeAdded = timeAdded });
             SaveBookmarks(bookmarks);
         }
 
@@ -59,6 +56,7 @@ namespace MegaVid.Services
         {
             public string FilePath { get; set; }
             public double Position { get; set; }
+            public string TimeAdded { get; set; }
         }
     }
 }

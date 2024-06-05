@@ -7,11 +7,18 @@ namespace MegaVid.Services
 {
     public class MediaLibraryService
     {
+        private readonly string[] _supportedExtensions = { "*.mp4", "*.avi", "*.mkv", "*.mov", "*.wmv" };
+
         public List<string> LoadVideoFiles(string directory)
         {
             try
             {
-                return Directory.GetFiles(directory, "*.mp4").ToList();
+                var videoFiles = new List<string>();
+                foreach (var extension in _supportedExtensions)
+                {
+                    videoFiles.AddRange(Directory.GetFiles(directory, extension).ToList());
+                }
+                return videoFiles;
             }
             catch (Exception ex)
             {

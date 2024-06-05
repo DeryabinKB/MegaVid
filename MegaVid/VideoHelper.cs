@@ -6,6 +6,7 @@ using MegaVid.Services;
 using Xamarin.CommunityToolkit.UI.Views;
 using static MegaVid.Services.BookmarkService;
 using System;
+using System.Threading.Tasks;
 
 namespace MegaVid.Helpers
 {
@@ -27,15 +28,41 @@ namespace MegaVid.Helpers
 
         public void AddBookmark(string filePath, double position)
         {
-            _bookmarkService.AddBookmark(filePath, position);
+            var timeAdded = DateTime.Now.ToString("HH:mm:ss");
+            _bookmarkService.AddBookmark(filePath, position, timeAdded);
             Application.Current.MainPage.DisplayAlert("Bookmark", "Bookmark updated.", "OK");
         }
 
         public void ShowBookmarks()
         {
             var bookmarks = _bookmarkService.GetBookmarks();
-            var bookmarkList = string.Join("\n", bookmarks.Select(b => $"{Path.GetFileName(b.FilePath)}"));
+            var bookmarkList = string.Join("\n", bookmarks.Select(b => $"{Path.GetFileName(b.FilePath)} at {b.TimeAdded}"));
             Application.Current.MainPage.DisplayAlert("Bookmarks", bookmarkList, "OK");
+        }
+
+        public async Task OpenBookmarkAsync(Bookmark bookmark)
+        {
+            try
+            {
+                Console.WriteLine($"Attempting to open bookmark: {bookmark.FilePath} at position {bookmark.Position}");
+
+                if (File.Exists(bookmark.FilePath))
+                {
+                    _mediaElement.Source = bookmark.FilePath;
+                    await Task.Delay(500); // Небольшая задержка для загрузки источника
+                    _mediaElement.Position = TimeSpan.FromSeconds(bookmark.Position);
+                    _mediaElement.Play();
+                    Console.WriteLine("Video started playing from bookmark.");
+                }
+                else
+                {
+                    Console.WriteLine($"File does not exist: {bookmark.FilePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error opening bookmark: " + ex.Message);
+            }
         }
 
         public void ShowHistory()

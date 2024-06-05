@@ -5,6 +5,8 @@ using MegaVid.Helpers;
 using Xamarin.Forms.Xaml;
 using Xamarin.CommunityToolkit.UI.Views;
 using MegaVid.Services;
+using static MegaVid.Services.BookmarkService;
+using System.Linq;
 
 namespace MegaVid
 {
@@ -51,7 +53,14 @@ namespace MegaVid
 
         private void OnClearHistoryClicked(object sender, EventArgs e)
         {
-            _videoHelper.ClearHistory();
+            try
+            {
+                _videoHelper.ClearHistory();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error clearing history: " + ex.Message);
+            }
         }
 
         private async void OnSelectVideoClicked(object sender, EventArgs e)
@@ -102,14 +111,46 @@ namespace MegaVid
 
         private void OnClearBookmarksClicked(object sender, EventArgs e)
         {
-            _videoHelper.ClearBookmarks();
+            try
+            {
+                _videoHelper.ClearBookmarks();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error clearing bookmarks: " + ex.Message);
+            }
         }
 
-        private void OnBookmarkSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void OnBookmarkSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem is BookmarkService.Bookmark selectedBookmark)
+            try
             {
-                _videoHelper.OpenBookmark(selectedBookmark);
+                if (e.SelectedItem is Bookmark selectedBookmark)
+                {
+                    Console.WriteLine($"Bookmark selected: {selectedBookmark.FilePath} at position {selectedBookmark.Position}");
+                    await _videoHelper.OpenBookmarkAsync(selectedBookmark);
+                    bookmarkFrame.IsVisible = false; // Скрыть панель закладок после выбора закладки
+                }
+
+                // Снять выделение после выбора элемента
+                bookmarkListView.SelectedItem = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error selecting bookmark: " + ex.Message);
+            }
+        }
+
+        private void OnAddToBookmarksClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                _videoHelper.AddBookmark(mediaElement.Source.ToString(), mediaElement.Position.TotalSeconds);
+                ResetControlPanelTimer();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error adding bookmark: " + ex.Message);
             }
         }
 
@@ -131,22 +172,44 @@ namespace MegaVid
             ResetControlPanelTimer();
         }
 
-        private void OnAddToBookmarksClicked(object sender, EventArgs e)
+        private void OnCloseBookmarksClicked(object sender, EventArgs e)
         {
-            _videoHelper.AddBookmark(mediaElement.Source.ToString(), mediaElement.Position.TotalSeconds);
-            ResetControlPanelTimer();
+            try
+            {
+                bookmarkFrame.IsVisible = false; // Скрыть панель закладок
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error closing bookmarks: " + ex.Message);
+            }
         }
 
         private void OnShowBookmarksClicked(object sender, EventArgs e)
         {
-            _videoHelper.ShowBookmarks();
-            ResetControlPanelTimer();
+            try
+            {
+                var bookmarks = _videoHelper.GetBookmarks();
+                bookmarkListView.ItemsSource = bookmarks.Select(b => new { FilePath = System.IO.Path.GetFileName(b.FilePath), TimeAdded = b.TimeAdded, Position = b.Position, FullPath = b.FilePath }).ToList();
+                bookmarkFrame.IsVisible = true; // Показать панель закладок
+                ResetControlPanelTimer();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error showing bookmarks: " + ex.Message);
+            }
         }
+
 
         private void OnShowHistoryClicked(object sender, EventArgs e)
         {
-            _videoHelper.ShowHistory();
-            ResetControlPanelTimer();
+            try
+            {
+                _videoHelper.ShowHistory();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error showing history: " + ex.Message);
+            }
         }
 
         private void OnShowMediaLibraryClicked(object sender, EventArgs e)
