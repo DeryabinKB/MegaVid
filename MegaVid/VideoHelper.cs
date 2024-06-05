@@ -67,6 +67,12 @@ namespace MegaVid.Helpers
             return _bookmarkService.GetBookmarks();
         }
 
+        public void ClearHistory()
+        {
+            _historyService.ClearHistory();
+            Application.Current.MainPage.DisplayAlert("History", "History cleared.", "OK");
+        }
+
         public void LoadVideoFiles(string directory)
         {
             _videoFiles = _mediaLibraryService.LoadVideoFiles(directory);

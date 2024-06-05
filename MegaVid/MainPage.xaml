@@ -55,11 +55,11 @@
 
         <StackLayout x:Name="sidePanel" HorizontalOptions="Start" VerticalOptions="Start" Padding="0">
             <Button Text="📁 Select Video" Clicked="OnSelectVideoClicked" TextColor="Black" HorizontalOptions="Start"/>
-            <Button Text="📚 Show Media Library" Clicked="OnShowMediaLibraryClicked" TextColor="Black" HorizontalOptions="Start"/>
             <Button Text="🔖 Add to Bookmarks" Clicked="OnAddToBookmarksClicked" TextColor="Black" HorizontalOptions="Start"/>
             <Button Text="🔖 Show Bookmarks" Clicked="OnShowBookmarksClicked" TextColor="Black" HorizontalOptions="Start"/>
             <Button Text="Clear Bookmarks" Clicked="OnClearBookmarksClicked" />
             <Button Text="🕒 Show History" Clicked="OnShowHistoryClicked" TextColor="Black" HorizontalOptions="Start"/>
+            <Button Text="Clear History" Clicked="OnClearHistoryClicked" />
             
         </StackLayout>
 

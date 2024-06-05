@@ -211,6 +211,27 @@ namespace MegaVid.Helpers
             });
         }
 
+        public void CheckVideoPositionAndSize()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+                var mediaElementBounds = _mediaElement.Bounds;
+
+                bool isCentered = Math.Abs((mainDisplayInfo.Width / 2) - (mediaElementBounds.Center.X)) < 10 &&
+                                  Math.Abs((mainDisplayInfo.Height / 2) - (mediaElementBounds.Center.Y)) < 10;
+
+                bool isCorrectSize = _mediaElement.Width <= mainDisplayInfo.Width &&
+                                     _mediaElement.Height <= mainDisplayInfo.Height;
+
+                if (!isCentered || !isCorrectSize)
+                {
+                    // Логика для исправления позиции и размера видео
+                    AdjustVideoSize(mainDisplayInfo.Orientation);
+                }
+            });
+        }
+
         private bool UpdateProgress()
         {
             if (_mediaElement.Source != null && _mediaElement.Duration.HasValue)

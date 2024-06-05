@@ -14,15 +14,21 @@ namespace MegaVid
         private readonly VideoControlHelper _videoControlHelper;
         private readonly System.Timers.Timer _hideControlPanelTimer;
         private Slider volumeSlider;
+        private readonly System.Timers.Timer _checkVideoPositionTimer;
 
         public MainPage()
         {
             InitializeComponent();
             _videoHelper = new VideoHelper(mediaElement);
             _videoControlHelper = new VideoControlHelper(mediaElement, playPauseButton, volumeSlider, progressSlider, currentTimeLabel, totalTimeLabel, controlPanel, progressPanel, rotateButton, sidePanel);
-            _hideControlPanelTimer = new System.Timers.Timer(5000); // 5 секунд
+
+            _hideControlPanelTimer = new System.Timers.Timer(5000);
             _hideControlPanelTimer.Elapsed += (sender, args) => HideControlPanel();
             _hideControlPanelTimer.AutoReset = false;
+
+            _checkVideoPositionTimer = new System.Timers.Timer(5000);
+            _checkVideoPositionTimer.Elapsed += (sender, args) => _videoControlHelper.CheckVideoPositionAndSize();
+            _checkVideoPositionTimer.Start();
 
             LoadVideoFiles();
             DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
@@ -41,6 +47,11 @@ namespace MegaVid
         {
             _videoControlHelper.AdjustControlPanelPosition(e.DisplayInfo.Orientation);
             _videoControlHelper.AdjustVideoSize(e.DisplayInfo.Orientation); // Добавляем этот вызов
+        }
+
+        private void OnClearHistoryClicked(object sender, EventArgs e)
+        {
+            _videoHelper.ClearHistory();
         }
 
         private async void OnSelectVideoClicked(object sender, EventArgs e)

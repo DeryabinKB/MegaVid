@@ -36,6 +36,18 @@ namespace MegaVid.Services
             }
         }
 
+        public void ClearHistory()
+        {
+            try
+            {
+                Preferences.Set("VideoHistory", string.Empty);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error clearing history: " + ex.Message);
+            }
+        }
+
         public void AddToHistory(string filePath, double position)
         {
             var history = GetHistory();
