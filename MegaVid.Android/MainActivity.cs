@@ -4,6 +4,7 @@ using Android.OS;
 using Xamarin.Forms.Platform.Android;
 using Rg.Plugins.Popup;
 using Android.Runtime;
+using Android.Views;
 
 namespace MegaVid.Droid
 {
@@ -12,13 +13,25 @@ namespace MegaVid.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            // Must be called before base.OnCreate to hide the title bar
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            this.Window.RequestFeature(WindowFeatures.NoTitle);
+
+            base.OnCreate(savedInstanceState);
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Popup.Init(this);
+
+            // Must be called after base.OnCreate
+            this.Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(
+                SystemUiFlags.HideNavigation |
+                SystemUiFlags.Fullscreen |
+                SystemUiFlags.ImmersiveSticky);
+
             LoadApplication(new App());
         }
 
